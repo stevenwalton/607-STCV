@@ -1,0 +1,41 @@
+\begin{frame}
+\frametitle{Outline}
+    \begin{itemize}
+        \item What Are Generators?
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Generators}
+    \begin{columns}
+    \begin{column}{0.48\paperwidth}
+        \begin{itemize}
+            \item<1->Suppose that we have some probability space $S$.
+            \item<2->$S$ has two variables $X$ (instances) and $Y$ (labels) that
+                represent cats and dogs.
+            \item<3->Often we want to find a boundary between different types of
+                data within a sample space. (Discrimitive Model)
+            \item<4->We might instead want to \textit{sample} from this space
+                and see what images are here.
+            \item<5->Typically we'll only work with a single classification.
+        \end{itemize}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+        \includegraphics<1>[width=\textwidth]{Images/SampleSpace_Empty.png}
+        \includegraphics<2>[width=\textwidth]{Images/SampleSpace.png}
+        \includegraphics<3>[width=\textwidth]{Images/SampleSpace_Classification.png}
+        \includegraphics<4>[width=\textwidth]{Images/SampleSpace_Generation.png}
+        \includegraphics<5>[width=\textwidth]{Images/SampleSpace_Cats.png}
+    \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Generators}
+    \begin{itemize}
+        \item In a Discriminitive model we learn a conditional probability
+            $P(Y|X)$ (predict the label given an image).
+        \item In a Generative model we learn the joint probability $P(X,Y)$
+            (produce an image).
+    \end{itemize}
+\end{frame}

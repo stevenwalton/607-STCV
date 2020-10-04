@@ -1,0 +1,41 @@
+\documentclass[tikz]{standalone}
+\usepackage{tikz}
+\usepackage{pgf}
+\usepackage{pgffor}
+\usepgfmodule{shapes}
+\usepgfmodule{plot}
+\usetikzlibrary{decorations}
+\usetikzlibrary{arrows}
+\usetikzlibrary{snakes}
+
+
+\begin{document}
+\begin{tikzpicture}
+
+%	\pgfpathmoveto{\pgfpoint{0cm}{2cm}}
+%	\pgfpathcurveto{\pgfpoint{.2cm}{2cm}}{\pgfpoint{.2cm}{2cm}}{\pgfpoint{1cm}{1cm}}
+%	\pgfpathcurveto{\pgfpoint{1.75cm}{0cm}}{\pgfpoint{1.8cm}{0cm}}{\pgfpoint{2cm}{-2cm}}
+%	\pgfpathcurveto{\pgfpoint{2.2cm}{-4cm}}{\pgfpoint{2.3cm}{-4.2cm}}{\pgfpoint{2.5cm}{-5cm}}
+%	\pgfpathcurveto{\pgfpoint{2.7cm}{-5.8cm}}{\pgfpoint{3cm}{-6cm}}{\pgfpoint{3cm}{-7cm}}
+%	\pgfpathcurveto{\pgfpoint{3cm}{-8cm}}{\pgfpoint{2.25cm}{-8.75cm}}{\pgfpoint{2cm}{-9cm}}
+%	\pgfpathcurveto{\pgfpoint{1.75cm}{-9.25cm}}{\pgfpoint{1cm}{-10cm}}{\pgfpoint{0cm}{-10cm}}
+%	\pgfpathcurveto{\pgfpoint{-2cm}{-10cm}}{\pgfpoint{-3cm}{-8cm}}{\pgfpoint{-3cm}{-7cm}}
+%	\pgfpathcurveto{\pgfpoint{-3cm}{-3cm}}{\pgfpoint{-1cm}{-2cm}}{\pgfpoint{-1cm}{-1cm}}
+%	\pgfpathcurveto{\pgfpoint{-1cm}{0cm}}{\pgfpoint{-.5cm}{2cm}}{\pgfpoint{0cm}{2cm}}
+%	\pgfusepath{stroke}
+
+\pgfpathmoveto{\pgfpoint{0cm}{0cm}}
+\pgfpathcurveto{\pgfpoint{0cm}{1cm}}{\pgfpoint{2cm}{0cm}}{\pgfpoint{3cm}{0.5cm}}
+\pgfpathcurveto{\pgfpoint{4cm}{.9cm}}{\pgfpoint{3cm}{1cm}}{\pgfpoint{4cm}{2cm}}
+\pgfpathcurveto{\pgfpoint{5cm}{2.5cm}}{\pgfpoint{7cm}{1cm}}{\pgfpoint{7cm}{0cm}}
+\pgfpathcurveto{}{}{\pgfpoint{8cm}{-2cm}}
+\pgfpathcurveto{}{}{\pgfpoint{7cm}{-5cm}}
+\pgfpathcurveto{}{}{\pgfpoint{3cm}{-6cm}}
+\pgfpathcurveto{}{}{\pgfpoint{1cm}{-5cm}}
+\pgfpathcurveto{}{}{\pgfpoint{0cm}{-3cm}}
+\pgfpathcurveto{}{}{\pgfpoint{0cm}{0cm}}
+
+\pgfusepath{stroke}
+
+\end{tikzpicture}
+\end{document}
