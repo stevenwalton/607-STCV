@@ -1,9 +1,9 @@
-\begin{frame}
-\frametitle{Outline}
-    \begin{itemize}
-        \item What Are Generators?
-    \end{itemize}
-\end{frame}
+%\begin{frame}
+%\frametitle{Outline}
+%    \begin{itemize}
+%        \item What Are Generators?
+%    \end{itemize}
+%\end{frame}
 
 \begin{frame}
     \frametitle{Generators}
@@ -21,11 +21,11 @@
         \end{itemize}
     \end{column}
     \begin{column}{0.48\textwidth}
-        \includegraphics<1>[width=\textwidth]{Images/SampleSpace_Empty.png}
-        \includegraphics<2>[width=\textwidth]{Images/SampleSpace.png}
-        \includegraphics<3>[width=\textwidth]{Images/SampleSpace_Classification.png}
-        \includegraphics<4>[width=\textwidth]{Images/SampleSpace_Generation.png}
-        \includegraphics<5>[width=\textwidth]{Images/SampleSpace_Cats.png}
+        \includegraphics<1>[width=\textwidth]{SampleSpace_Empty.png}
+        \includegraphics<2>[width=\textwidth]{SampleSpace.png}
+        \includegraphics<3>[width=\textwidth]{SampleSpace_Classification.png}
+        \includegraphics<4>[width=\textwidth]{SampleSpace_Generation.png}
+        \includegraphics<5>[width=\textwidth]{SampleSpace_Cats.png}
     \end{column}
     \end{columns}
 \end{frame}
@@ -35,7 +35,134 @@
     \begin{itemize}
         \item In a Discriminitive model we learn a conditional probability
             $P(Y|X)$ (predict the label given an image).
-        \item In a Generative model we learn the joint probability $P(X,Y)$
+        \item In a Generative model we learn to sample for p(x)
             (produce an image).
+        \item<2> In reality we learn $p_\theta(\hat{x})$ from $p_{true}(x)$
     \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{But Why?}
+    \includegraphics<1>[width=\textwidth]{ButWhy.jpg}
+\end{frame}
+
+\begin{frame}
+    \frametitle{But Why?}
+    \begin{itemize}
+        \item<1-> We can create images that don't exist.
+        \item<2-> We can create new datasets.
+        \item<3-> We can upscale images/videos.
+        \item<4-> We can lean latent variables.
+        \item<5-> We can uncover biases.
+        \item<6-> And so much more!
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{But Why?: Generate Images}
+    \begin{columns}
+        \begin{column}{0.48\paperwidth}
+            \begin{itemize}
+                \item We can generate cats that don't exist.
+                \item Helps create new data within a dataset.
+                \item Can create fake characters/animals/scenes that don't exist
+                    in real life but look realistic (art).
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.48\paperwidth}
+            \includegraphics[width=\textwidth]{TCDNE.png}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{But Why?: Upscaling}
+    \begin{columns}
+        \begin{column}{0.48\paperwidth}
+            \begin{itemize}
+                \item We can take lossy images and produce higher quality
+                    images.
+                \item We can also take smaller images and make them larger.
+                \item Helpful in compression.
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.48\paperwidth}
+            \includegraphics[width=\textwidth]{Upscaling.jpg}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{But Why?: Learn Latent Variables}
+    \begin{columns}
+        \begin{column}{0.48\paperwidth}
+            \begin{itemize}
+                \item We can learn the different latent variables in a dataset.
+                \item For example we can learn how to make someone old!
+                \item We could also use this as a form of compression
+                    (autoencoders)
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.48\paperwidth}
+            \includegraphics[width=\textwidth]{latent.jpg}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{But Why?: Uncovering Bias}
+    \begin{columns}
+        \begin{column}{0.48\paperwidth}
+            \begin{itemize}
+                \item<1-> We have a dataset of faces.
+                \item<2-> Might have some distribution, let's say...
+                \item<3-> Most of the faces fit in the main part of the
+                    distribution.
+                \item<4-> We have outliers in the dataset.
+                \item<5-> We can now adjust our dataset or potentially generate
+                    new images for a classifier if we can't fix the distribution
+                    (might not be logistically possible).
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.48\paperwidth}
+            \includegraphics<1>[width=\textwidth]{Faces.png}
+            \includegraphics<2>[width=\textwidth]{Faces_Distribution.png}
+            \includegraphics<3>[width=\textwidth]{Faces_MainDistrib.png}
+            \includegraphics<4->[width=\textwidth]{Faces_Tail.png}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Taxonomy of Generators}
+    \includegraphics[width=\textwidth]{Taxonomy.png}
+    \null\hfill \tiny{Source: Ian Goodfellow}
+\end{frame}
+
+\begin{frame}
+    \frametitle{AutoEncoders}
+    \includegraphics[width=\textwidth]{AutoEncoder.png}
+\end{frame}
+
+\begin{frame}
+    \frametitle{AutoEncoders}
+    \begin{columns}
+        \begin{column}{0.48\paperwidth}
+            \begin{itemize}
+                \item<1-> Want to take $x$ and produce $\hat{x}$
+                \item<2-> Sample $x$ from dataset and encode to latent space
+                    $z$.
+                \item<3-> Decode to sample from $z$ and generate $\hat{x}$
+                \item<4-> Regularize $||x-\hat{x}||^2$
+                \item<5-> Gives us a non-supervised training.
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.48\paperwidth}
+            \includegraphics<1>[width=\textwidth]{AutoEncoder_blank.png}
+            \includegraphics<2>[width=\textwidth]{AutoEncoder_In.png}
+            \includegraphics<3>[width=\textwidth]{AutoEncoder_Out.png}
+            \includegraphics<4>[width=\textwidth]{AutoEncoder_Reg.png}
+        \end{column}
+    \end{columns}
 \end{frame}

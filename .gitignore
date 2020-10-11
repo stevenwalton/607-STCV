@@ -11,3 +11,5 @@ tags*
 *.bbl
 *.blg
 *.sta
+.DS_Store
+*.xcf
