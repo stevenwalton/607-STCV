@@ -136,8 +136,43 @@
 
 \begin{frame}
     \frametitle{Taxonomy of Generators}
-    \includegraphics[width=\textwidth]{Taxonomy.png}
-    \null\hfill \tiny{Source: Ian Goodfellow}
+    \includegraphics[width=\textwidth]{taxonomy.png}
+    \null\hfill \tiny{source: ian goodfellow}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Taxonomy of Generators: Explicit Density}
+    \begin{columns}
+        \begin{column}{0.48\paperwidth}
+            \begin{itemize}
+                \item We want to learn a distribution of
+                    data. 
+                \item We assume some prior about the distribution of the data. 
+                \item We learn the log-liklihood of the function $\log
+                    p_\theta(x)$
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.48\paperwidth}
+            \includegraphics[width=\textwidth]{taxonomy_Explicit.png}
+            \null\hfill \tiny{source: ian goodfellow}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Taxonomy of Generators: Implicit Density}
+    \begin{columns}
+        \begin{column}{0.48\paperwidth}
+            \begin{itemize}
+                \item We want to learn a stochastic procedure to generate data. 
+                \item We learn liklihood-free.
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.48\paperwidth}
+            \includegraphics[width=\textwidth]{taxonomy_Implicit.png}
+            \null\hfill \tiny{source: ian goodfellow}
+        \end{column}
+    \end{columns}
 \end{frame}
 
 \begin{frame}
@@ -150,19 +185,42 @@
     \begin{columns}
         \begin{column}{0.48\paperwidth}
             \begin{itemize}
+                \item Want to learn latent variable $z$ from $x$. $\mathbb{R}^n
+                    \mapsto \mathbb{R}^m$ where $m<n$
+                \item Compressed representation of the data.
+                \item Since we don't have training data for z, we construct a
+                    decoder to do unsupervised learning.
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.48\paperwidth}
+            \includegraphics[width=\textwidth]{AutoEncoder.png}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{AutoEncoders}
+    \begin{columns}
+        \begin{column}{0.48\paperwidth}
+            \begin{itemize}
                 \item<1-> Want to take $x$ and produce $\hat{x}$
                 \item<2-> Sample $x$ from dataset and encode to latent space
                     $z$.
                 \item<3-> Decode to sample from $z$ and generate $\hat{x}$
                 \item<4-> Regularize $||x-\hat{x}||^2$
-                \item<5-> Gives us a non-supervised training.
+                \item<5-> Gives us a unsupervised training.
             \end{itemize}
         \end{column}
         \begin{column}{0.48\paperwidth}
             \includegraphics<1>[width=\textwidth]{AutoEncoder_blank.png}
             \includegraphics<2>[width=\textwidth]{AutoEncoder_In.png}
             \includegraphics<3>[width=\textwidth]{AutoEncoder_Out.png}
-            \includegraphics<4>[width=\textwidth]{AutoEncoder_Reg.png}
+            \includegraphics<4->[width=\textwidth]{AutoEncoder_Reg.png}
         \end{column}
     \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Pick Our Latent Space Size Carefully}
+    \includegraphics[width=\textwidth]{AE-MNIST.png}
 \end{frame}
