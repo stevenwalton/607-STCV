@@ -141,6 +141,79 @@
 \end{frame}
 
 \begin{frame}
+    \frametitle{Taxonomy of Generators: Implicit Density}
+    \begin{columns}
+        \begin{column}{0.48\paperwidth}
+            \begin{itemize}
+                \item We want to learn a stochastic procedure to generate data. 
+                \item We learn liklihood-free.
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.48\paperwidth}
+            \includegraphics[width=\textwidth]{taxonomy_Implicit.png}
+            \null\hfill \tiny{source: ian goodfellow}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{This X Does Not Exist}
+    \vspace{-1em}
+    \begin{figure}
+        \begin{subfigure}{0.25\textwidth}
+            \includegraphics[width=\textwidth]{tpdne.jpg}
+            \caption{This Person Does Not Exist (StyleGAN2)}
+        \end{subfigure}
+        \begin{subfigure}{0.25\textwidth}
+            \includegraphics[width=\textwidth]{tcdne.jpg}
+            \caption{This Cat Does Not Exist (StyleGAN)}
+        \end{subfigure}
+        \begin{subfigure}{0.5\textwidth}
+            \includegraphics[width=\textwidth]{twdne.png}
+            \caption{This Anime Does Not Exist (StyleGAN2 + GPT-3)}
+        \end{subfigure}
+    \end{figure}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Generative Adversarial Networks}
+    \includegraphics[width=\textwidth]{AC-GAN.png}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Generative Adversarial Networks}
+    \center\includegraphics[height=0.75\textheight]{GAN.png}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Generative Adversarial Networks}
+    \center\includegraphics[height=0.75\textheight]{GAN-as-AC.png}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Generative Adversarial Networks}
+    \begin{itemize}
+        \item Send noise into Generator.
+        \item Send generated image and real images into Discriminator.
+        \item Play mini-max game teaching the Generator to fool the
+            Discriminator.
+        \item When fake image can adaquately fool (a well trained) discriminator
+            we produce quality images. 
+        \item<2-> In practice we train D, then G then repeat. 
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{But Why Is This Implicit?}
+    \begin{itemize}
+        \item We didn't learn a density function.
+        \item We just focus on generating samples.
+        \item Don't have an (easy) smooth transition between latent variables.
+        \item "We're training them to memorize, not generalize" - Ian Goodfellow
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
     \frametitle{Taxonomy of Generators: Explicit Density}
     \begin{columns}
         \begin{column}{0.48\paperwidth}
@@ -160,25 +233,10 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Taxonomy of Generators: Implicit Density}
-    \begin{columns}
-        \begin{column}{0.48\paperwidth}
-            \begin{itemize}
-                \item We want to learn a stochastic procedure to generate data. 
-                \item We learn liklihood-free.
-            \end{itemize}
-        \end{column}
-        \begin{column}{0.48\paperwidth}
-            \includegraphics[width=\textwidth]{taxonomy_Implicit.png}
-            \null\hfill \tiny{source: ian goodfellow}
-        \end{column}
-    \end{columns}
-\end{frame}
-
-\begin{frame}
     \frametitle{AutoEncoders}
     \includegraphics[width=\textwidth]{AutoEncoder.png}
 \end{frame}
+
 
 \begin{frame}
     \frametitle{AutoEncoders}
