@@ -209,6 +209,7 @@
         \item We didn't learn a density function.
         \item We just focus on generating samples.
         \item Don't have an (easy) smooth transition between latent variables.
+        \item Likelihood is not tractable.
         \item "We're training them to memorize, not generalize" - Ian Goodfellow
     \end{itemize}
 \end{frame}
@@ -281,4 +282,89 @@
 \begin{frame}
     \frametitle{Pick Our Latent Space Size Carefully}
     \includegraphics[width=\textwidth]{AE-MNIST.png}
+\end{frame}
+
+\begin{frame}
+    \frametitle{The BIG Problem!}
+    \center We can't generate new and unique samples!
+\end{frame}
+
+\begin{frame}
+    \frametitle{Variational Autoencoder (VAE)}
+    \begin{itemize}
+        \item We need a way to generate \textbf{new} samples that aren't seen in
+            the dataset.
+        \item Need to add some variance and noise (make non-determanistic).
+        \item Still have to be able to do back propagation.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Variational Autoencoder (VAE)}
+    \includegraphics[width=\textwidth]{VAE.png}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Variational Autoencoder (VAE)}
+    \begin{columns}
+        \begin{column}{0.60\paperwidth}
+            \begin{itemize}
+                \item<1-> Encoder computes $p_\phi(z|x)$ \\(reconstruction loss, like
+                    autoencoder)
+                \item<2-> Decoder computes $q_\theta(x|z)$ \\(regularization term)
+                \item<3-> $L(\phi,\theta,x) = ||x - \hat{x}||^2 + D(p_\phi(z|x)
+                    || p(x))$
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.40\paperwidth}
+            \includegraphics[width=\textwidth]{VAE.png}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{(VAE) Regularization Term}
+    \begin{columns}
+        \begin{column}{0.60\paperwidth}
+            \begin{itemize}
+                \item<1-> $L(\phi,\theta,x) = ||x - \hat{x}||^2 + D(p_\phi(z|x)
+                    || p(x))$
+                \item<2-> We are using the KL-Divergence between the
+                    \textit{inferred latent distribution} ($p_\phi(z|x)$) and
+                    the \textit{fixed prior on latent distribution} ($p(z)$).
+                \item<3-> What prior? Why not Gaussian? $p(z) =
+                    \mathcal{N}(\mu=0, \sigma^2=1)$
+                \item<4-> Encourages encoding to distribute evenly around latent
+                    space and penalizes when memorizing.
+                \item<4-> $D(p_\phi(z|x) || p(z)) = -\frac12\sum(\sigma_j +
+                    \mu_j^2 - 1 -\log{\sigma_j})$
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.40\paperwidth}
+            \includegraphics[width=\textwidth]{VAE.png}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{(VAE) Reparameterization}
+    \begin{columns}
+        \begin{column}{0.60\paperwidth}
+            \begin{itemize}
+                \item<1-> Ops! We can't backprop through this! $z$ is a
+                    stochastic node.
+                \item<2-> We can reparameratize.
+                \item<3-> $z = \mu + \sigma \odot \varepsilon$
+                \item<3-> We let $\mu$ and $\sigma$ be fixed vectors and
+                    $\varepsilon \sim \mathcal{N}(0,1)$
+                \item<4-> Now we can backprop through $\phi$ and $x$. 
+                \item<4-> Now we can adjust $\varepsilon$ and create new images
+                    similar to the ones we learned from.
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.40\paperwidth}
+            \centering\includegraphics<1-2>[width=0.5\textwidth]{VAE-beforeReParam.png}
+            \centering\includegraphics<3->[width=0.7\textwidth]{VAE-ReParam.png}
+        \end{column}
+    \end{columns}
 \end{frame}
