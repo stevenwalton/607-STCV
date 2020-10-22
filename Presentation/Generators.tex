@@ -215,6 +215,35 @@
 \end{frame}
 
 \begin{frame}
+    \frametitle{Latent Space}
+    \includegraphics<1>[height=0.75\textheight]{oregonTopo.jpg}
+    \includegraphics<2>[height=0.75\textheight]{oregonTopo1.jpg}
+    \includegraphics<3>[height=0.75\textheight]{oregonTopo2.jpg}
+    \includegraphics<4>[height=0.75\textheight]{oregonTopo3.jpg}
+    \includegraphics<5>[height=0.75\textheight]{oregonTopo4.jpg}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Latent Space}
+    \vspace{-1.25em}
+    \center\footnotesize{TSNE visualization of vanilla GAN latent space. }
+    \center\includegraphics[height=0.70\textheight]{GANLatent.png}
+    \\
+    \tiny{Image from ClusterGAN paper which works on resolving this
+    issue}
+\end{frame}
+
+\begin{frame}
+    \frametitle{So Why Use GANs?}
+    \begin{itemize}
+        \item Because they are quick.
+        \item They produce high quality images.
+        \item Can still do many tasks.
+        \item They're well researched.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
     \frametitle{Taxonomy of Generators: Explicit Density}
     \begin{columns}
         \begin{column}{0.48\paperwidth}
@@ -300,6 +329,19 @@
 \end{frame}
 
 \begin{frame}
+    \frametitle{VAE: Breaking Down the Problem}
+    \begin{itemize}
+        \item<1-> Suppose there is some hidden (latent) variable $z$ that produces
+            observation $x$, $p(z|x)$. \textbf{We want to learn this.}
+        \item<2-> $p(z|x) = \frac{p(x|z)p(z)}{p(x)}$
+        \item<3-> $p(x) = \int p(x|z)p(z)dz$ (intractable!)
+        \item<4-> We can approximate $p(z|x)$ with another distribution $q(z|x)$
+            that is tractable.
+        \item<5-> We'll then need to measure the difference between $p$ and $q$.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
     \frametitle{Variational Autoencoder (VAE)}
     \includegraphics[width=\textwidth]{VAE.png}
 \end{frame}
@@ -367,4 +409,74 @@
             \centering\includegraphics<3->[width=0.7\textwidth]{VAE-ReParam.png}
         \end{column}
     \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Approximate Density Estimation}
+    \begin{itemize}
+        \item We didn't actually learn $p(x)$ but rather $q(x)$.
+        \item We approximated the density of $p(x)$ with a tractable
+            distribution.
+        \item KL Divergence is always $\geq 0$.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Density Estimation}
+    \begin{itemize}
+        \item We've come close to learning density, but not exactly. 
+        \item Density is \textbf{very} difficult to learn.
+        \item Having true density should mean better ability to perform our
+            downstream tasks (generation, density estimation, latent variable
+            inference, etc)
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Change Of Variables}
+    \begin{columns}
+        \begin{column}{0.49\paperwidth}
+            \begin{itemize}
+                \item What if we just map to a different space?
+                \item We'll convert one probability distribution to another
+                    tractable distribution (such as a Gaussian)
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.49\paperwidth}
+            \center\includegraphics[width=\textwidth]{cov.png}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Bijection (One-to-One)}
+    \hspace{-1em}\center\includegraphics[width=1.1\textwidth]{bijective.png}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Change Of Variables}
+    \begin{itemize}
+        \item<1-> $\int p(x)dx = \int q(z)dz = 1$ (Definition of PDF)
+        \item<2-> $p(x) = q(z) \left | \frac{dz}{dx} \right |$
+        \item<3-> $= q(f^{-1}(x))\left | \frac{df^{-1}(x)}{dx}\right |$
+        \item<4-> $p(x) = q(f^{-1}(x))\left | det\frac{df^{-1}(x)}{dx} \right |$
+            (using the Jacobian determinant)
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Normalizing Flow}
+    \center\includegraphics[width=\textwidth]{normalizing-flow.png}
+    \tiny{Source: lilianweng.github.io}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Normalizing Flow}
+    \begin{itemize}
+        \item We need our function $f(x)$ to be easily invertible
+        \item The Jacobian determinant needs to be \textit{easy} to compute.
+        \item BUT we get the exact log-likelihood of $p(x)$ (tractable) and we
+            can train our model on the NLL \\$\mathcal{L}(D) = -\frac{1}{|D|}
+            \sum\limits_{x\in D} log{p(x)}$
+    \end{itemize}
 \end{frame}
