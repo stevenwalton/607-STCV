@@ -31,10 +31,15 @@
 \end{frame}
 
 \begin{frame}
+    \frametitle{What Is A Generator?}
+    \center\includegraphics[width=\textwidth]{whatis.jpg}
+\end{frame}
+
+\begin{frame}
     \frametitle{Generators}
     \begin{itemize}
         \item In a Discriminitive model we learn a conditional probability
-            $P(Y|X)$ (predict the label given an image).
+            $P(Y=label|X=image)$ (predict the label given an image).
         \item In a Generative model we learn to sample for p(x)
             (produce an image).
         \item<2> In reality we learn $p_\theta(\hat{x})$ from $p_{true}(x)$
@@ -50,7 +55,7 @@
     \frametitle{But Why?}
     \begin{itemize}
         \item<1-> We can create images that don't exist.
-        \item<2-> We can create new datasets.
+        \item<2-> We can create new data.
         \item<3-> We can upscale images/videos.
         \item<4-> We can lean latent variables.
         \item<5-> We can uncover biases.
@@ -67,6 +72,7 @@
                 \item Helps create new data within a dataset.
                 \item Can create fake characters/animals/scenes that don't exist
                     in real life but look realistic (art).
+                \item Don't have to pay models or liability.
             \end{itemize}
         \end{column}
         \begin{column}{0.48\paperwidth}
@@ -84,6 +90,8 @@
                     images.
                 \item We can also take smaller images and make them larger.
                 \item Helpful in compression.
+                \item Restoration of images (also inpainting)
+                \item Make old images/videos look new/modern.
             \end{itemize}
         \end{column}
         \begin{column}{0.48\paperwidth}
@@ -101,6 +109,7 @@
                 \item For example we can learn how to make someone old!
                 \item We could also use this as a form of compression
                     (autoencoders)
+                \item We can add/modify features of someone (add a mostache).
             \end{itemize}
         \end{column}
         \begin{column}{0.48\paperwidth}
@@ -114,14 +123,14 @@
     \begin{columns}
         \begin{column}{0.48\paperwidth}
             \begin{itemize}
-                \item<1-> We have a dataset of faces.
+                \item<1-> Suppose we have a dataset of faces.
                 \item<2-> Might have some distribution, let's say...
                 \item<3-> Most of the faces fit in the main part of the
                     distribution.
                 \item<4-> We have outliers in the dataset.
-                \item<5-> We can now adjust our dataset or potentially generate
-                    new images for a classifier if we can't fix the distribution
-                    (might not be logistically possible).
+                \item<5-> We can now adjust our dataset (gather new data )or
+                    potentially generate new images for a classifier if we can't
+                    fix the distribution (might not be logistically possible).
             \end{itemize}
         \end{column}
         \begin{column}{0.48\paperwidth}
@@ -244,6 +253,60 @@
 \end{frame}
 
 \begin{frame}
+    \frametitle{StyleGAN2}
+    Let's look at a modern GAN and how it works.
+\end{frame}
+
+\begin{frame}
+    \frametitle{Problems With StyleGAN}
+    \begin{itemize}
+        \item GANs typically have ``blobs'' that are mysteriously produced.
+        \item Often get ``GAN Monsters'' where parts of images get wildly
+            distorted.
+        \item Certain characteristics are too common. Eyes forward, smile
+            alignment. 
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Blobs and More Blobs}
+    \center\includegraphics[width=\textwidth]{StyleGAN2_blobs.png}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Monsters}
+    \center\includegraphics[width=\textwidth]{StyleGAN2_monsters.png}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Phase Characteristics}
+    \center\includegraphics[width=\textwidth]{StyleGAN2_phase.png}
+\end{frame}
+
+\begin{frame}
+    \frametitle{StyleGAN (OG)}
+    \center\includegraphics[width=\textwidth]{StyleGAN.png}
+\end{frame}
+
+\begin{frame}
+    \frametitle{StyleGAN (OG)}
+    \begin{columns}
+        \begin{column}{0.48\paperwidth}
+            \begin{itemize}
+                \item Uses upscaling convolutions, doubling.
+                \item Learns a ``style space'' ($w$)
+                \item Introduces Adaptive Instance Normalization (AdaIN)\\
+                    AdaIN$(x_i,y) = y_{s,i}\frac{x_i - \mu(x_i)}{\sigma(x_i)} +
+                    y_{b,i}$
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.48\paperwidth}
+            \center\includegraphics[width=\textwidth]{StyleGAN_only.png}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
     \frametitle{Taxonomy of Generators: Explicit Density}
     \begin{columns}
         \begin{column}{0.48\paperwidth}
@@ -354,7 +417,7 @@
                 \item<1-> Encoder computes $p_\phi(z|x)$ \\(reconstruction loss, like
                     autoencoder)
                 \item<2-> Decoder computes $q_\theta(x|z)$ \\(regularization term)
-                \item<3-> $L(\phi,\theta,x) = ||x - \hat{x}||^2 + D(p_\phi(z|x)
+                \item<3-> $L(\phi,\theta,x) = ||x - \hat{x}||^2 + KL(p_\phi(z|x)
                     || p(x))$
             \end{itemize}
         \end{column}
@@ -369,7 +432,7 @@
     \begin{columns}
         \begin{column}{0.60\paperwidth}
             \begin{itemize}
-                \item<1-> $L(\phi,\theta,x) = ||x - \hat{x}||^2 + D(p_\phi(z|x)
+                \item<1-> $L(\phi,\theta,x) = ||x - \hat{x}||^2 + KL(p_\phi(z|x)
                     || p(x))$
                 \item<2-> We are using the KL-Divergence between the
                     \textit{inferred latent distribution} ($p_\phi(z|x)$) and
@@ -378,7 +441,7 @@
                     \mathcal{N}(\mu=0, \sigma^2=1)$
                 \item<4-> Encourages encoding to distribute evenly around latent
                     space and penalizes when memorizing.
-                \item<4-> $D(p_\phi(z|x) || p(z)) = -\frac12\sum(\sigma_j +
+                \item<4-> $KL(p_\phi(z|x) || p(z)) = -\frac12\sum(\sigma_j +
                     \mu_j^2 - 1 -\log{\sigma_j})$
             \end{itemize}
         \end{column}
@@ -422,13 +485,22 @@
 \end{frame}
 
 \begin{frame}
+    \frametitle{Good and Bad of a VAE}
+    \begin{itemize}
+        \item They are very easy to train.
+        \item Often not high quality images.
+        \item You learn an approximate density function (have log-liklihood)
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
     \frametitle{Density Estimation}
     \begin{itemize}
         \item We've come close to learning density, but not exactly. 
         \item Density is \textbf{very} difficult to learn.
-        \item Having true density should mean better ability to perform our
-            downstream tasks (generation, density estimation, latent variable
-            inference, etc)
+        \item Having true density \textit{should} mean better ability to perform
+            our downstream tasks (generation, density estimation, latent
+            variable inference, etc)
     \end{itemize}
 \end{frame}
 
@@ -449,8 +521,8 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Bijection (One-to-One)}
-    \hspace{-1em}\center\includegraphics[width=1.1\textwidth]{bijective.png}
+    \frametitle{Bijection (One-to-One and On-To)}
+    \includegraphics[width=1.\textwidth]{bijective.png}
 \end{frame}
 
 \begin{frame}
@@ -480,3 +552,162 @@
             \sum\limits_{x\in D} log{p(x)}$
     \end{itemize}
 \end{frame}
+
+\begin{frame}
+    \frametitle{NICE: Non-linear Independent Components Estimation}
+    \begin{itemize}
+        \item<1-> Key Idea: What if split the the transformation into two
+            blocks? $x \mapsto (x_0, x_1)$
+        \item<2-> Use an easy to invert equation.\\
+            \begin{tabular}{|l|l|}
+                \hline
+                $f(x)$ & $f^{-1}(y)$\\
+                \hline
+                $y_0 = x_0$ & $x_0 = y_0$\\
+                $y_1 = x_1 + m(x_0)$ & $x_1 = y_1 - m(y_0)$
+                \\\hline
+            \end{tabular}
+        \item<3->Jacobian is trivial and triangular.
+        \item<4->2nd Key Idea: Permute $x$ split: $x_0 \mapsto (x_{0,0}, x_{0,1}), x_1
+            \mapsto (x_{1,1}, x_{1,0}), x_2 \mapsto...$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Throwing It Together}
+    \begin{itemize}
+        \item Sample from a tractable distribution $z\sim f(x)$.
+        \item Make $m(x)$ a neural net.
+        \item Use at least 3 layers (permuting $x$).
+        \item Add a scaling term at the last layer $e^s\odot f(x)$.
+    \end{itemize}
+    \center\includegraphics[width=0.6\textwidth]{permute.png}
+\end{frame}
+
+\begin{frame}
+    \frametitle{NICE: Results}
+    \center\includegraphics[width=0.65\textwidth]{NICEMNIST.png}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Why Is This Better/Worse?}
+    \begin{itemize}
+        \item We've learned a richer family of priors compared to VAE.
+        \item More difficult to train because we need invertible functions.
+        \item Able to perform complex/accurate downstream tasks because we've
+            better approximated the distribution. (e.g. Inpainting, conceptual
+            compression)
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{GLOW}
+    \begin{itemize}
+        \item NICE (and RealNVP) do not produce sharp images.
+        \item NICE could not compete with common GAN tasks like face generation.
+        \item Need a new model to get sharp features and produce high quality
+            images. 
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{GLOW: What Changed?}
+    \begin{itemize}
+        \item Add an Actnorm layer.
+        \item Add an invertible convolution layer to learn checkerboarding.
+        \item Make it bigger!
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{GLOW: What Changed?}
+    \center\includegraphics[width=\textwidth]{GLOWModel.png}
+\end{frame}
+
+\begin{frame}
+    \frametitle{GLOW: What Changed?}
+    \center\includegraphics[width=\textwidth]{GLOWComponents.png}
+\end{frame}
+
+\begin{frame}
+    \frametitle{GLOW: Training}
+    \begin{itemize}
+        \item Set $K=32$ and $L=6$ for ($32*6 + 32$) $224$ flow steps (NICE had
+            5!)
+        \item New type of layers (NICE only had the additive coupling)
+        \item Can train on CelebA-HQ (256x256) images.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{GLOW: Results}
+    \center\includegraphics[width=\textwidth]{GLOWResults.png}
+\end{frame}
+
+\begin{frame}
+    \frametitle{GLOW vs StyleGAN vs StyleGAN2}
+    \begin{columns}
+        \begin{column}{0.3\paperwidth}
+            \center\includegraphics[width=\textwidth]{GLOWSingle.png}
+            \\
+            \center{GLOW}
+        \end{column}
+        \begin{column}{0.3\paperwidth}
+            \center\includegraphics[width=\textwidth]{SRGAN.png}
+            \\
+            \center{StyleGAN}
+        \end{column}
+        \begin{column}{0.3\paperwidth}
+            \center\includegraphics[width=\textwidth]{tpdne.jpg}
+            \\
+            \center{StyleGAN2}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{GLOW Downstream Tasks: Interpolation}
+    \center\includegraphics[width=\textwidth]{GLOWInterp.png}
+\end{frame}
+
+\begin{frame}
+    \frametitle{GLOW Downstream Tasks: Feature Manipulation}
+    \center\includegraphics[width=\textwidth]{GLOWFeatures.png}
+\end{frame}
+
+\begin{frame}
+    \frametitle{What About Using Flows for Super Resolution?}
+    \begin{itemize}
+        \item Use flows as a replacement for GAN super resolution.
+        \item Training within certain scale uses a normalizing flow.
+        \item When scaling up and down use injective and surjective functions.
+        \item Output is a distribution instead of a single image.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{SRFlow}
+    \center\includegraphics[width=\textwidth]{SRFLOW.png}
+\end{frame}
+
+\begin{frame}
+    \frametitle{SRFlow: Comparison}
+    \center\includegraphics[width=\textwidth]{SRFLOW_Examples.png}
+\end{frame}
+
+\begin{frame}
+    \frametitle{SRFlow: Stochastic Output}
+    \center\includegraphics[width=\textwidth]{SRFLOW_Stochastic.png}
+\end{frame}
+
+\begin{frame}
+    \frametitle{SRFlow: Stochastic Output}
+    \center\includegraphics[width=\textwidth]{SRFLOW_Stochastic2.png}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Recap: Generative Models}
+    \center\includegraphics[width=\textwidth]{GenerativeModels.png}
+\end{frame}
+
