@@ -307,6 +307,35 @@
 \end{frame}
 
 \begin{frame}
+    \frametitle{StyleGAN vs StyleGAN 2}
+    \center\includegraphics[width=\textwidth]{StyleGAN1And2.png}
+\end{frame}
+
+\begin{frame}
+    \frametitle{StyleGAN2: What Changed}
+    \begin{itemize}
+        \item Removed AdaIN. Removing this removes the droplet/blobs.
+        \item Lazy Regularization: Split loss and regularization terms and
+            regularize every 16 minibatches.
+        \item Noticed low Perceptual Path Length (PPL) results had better images
+            so introduced a new regularizer to account for this.
+        \item Use skip generator and residual discriminator instead of
+            progressive growing.
+        \item Increase network size (helps get from 512x512 to 1024x1024).
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{StyleGAN2 Results}
+    \center\includegraphics[width=\textwidth]{StyleGAN2_results.png}
+\end{frame}
+
+\begin{frame}
+    \frametitle{StyleGAN2 Results}
+    \center\includegraphics[width=\textwidth]{StyleGAN2_hand.png}
+\end{frame}
+
+\begin{frame}
     \frametitle{Taxonomy of Generators: Explicit Density}
     \begin{columns}
         \begin{column}{0.48\paperwidth}
@@ -382,6 +411,12 @@
 \end{frame}
 
 \begin{frame}
+    \frametitle{Taxonomy of Generators}
+    \includegraphics[width=\textwidth]{Taxonomy_VAE.png}
+    \null\hfill \tiny{source: ian goodfellow}
+\end{frame}
+
+\begin{frame}
     \frametitle{Variational Autoencoder (VAE)}
     \begin{itemize}
         \item We need a way to generate \textbf{new} samples that aren't seen in
@@ -432,16 +467,16 @@
     \begin{columns}
         \begin{column}{0.60\paperwidth}
             \begin{itemize}
-                \item<1-> $L(\phi,\theta,x) = ||x - \hat{x}||^2 + KL(p_\phi(z|x)
+                \item $L(\phi,\theta,x) = ||x - \hat{x}||^2 + KL(p_\phi(z|x)
                     || p(x))$
-                \item<2-> We are using the KL-Divergence between the
+                \item We are using the KL-Divergence between the
                     \textit{inferred latent distribution} ($p_\phi(z|x)$) and
                     the \textit{fixed prior on latent distribution} ($p(z)$).
-                \item<3-> What prior? Why not Gaussian? $p(z) =
+                \item What prior? Why not Gaussian? $p(z) =
                     \mathcal{N}(\mu=0, \sigma^2=1)$
-                \item<4-> Encourages encoding to distribute evenly around latent
+                \item Encourages encoding to distribute evenly around latent
                     space and penalizes when memorizing.
-                \item<4-> $KL(p_\phi(z|x) || p(z)) = -\frac12\sum(\sigma_j +
+                \item $KL(p_\phi(z|x) || p(z)) = -\frac12\sum(\sigma_j +
                     \mu_j^2 - 1 -\log{\sigma_j})$
             \end{itemize}
         \end{column}
@@ -491,6 +526,12 @@
         \item Often not high quality images.
         \item You learn an approximate density function (have log-liklihood)
     \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Taxonomy of Generators}
+    \includegraphics[width=\textwidth]{Taxonomy_Tractable.png}
+    \null\hfill \tiny{source: ian goodfellow}
 \end{frame}
 
 \begin{frame}
