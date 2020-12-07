@@ -1,5 +1,5 @@
 \section{Generative Adversarial Networks}\label{sec:GAN}
-Generative Adversarial Networks (GANs)~\cite{} are a type of generative model
+Generative Adversarial Networks (GANs) are a type of generative model
 that uses a minimax algorithm to generate images. The network is composed of
 multiple parts: a generator and a discriminator, as shown in
 Figure~\ref{fig:gan}. The generator takes as input some noise from a known
@@ -29,7 +29,7 @@ they have a few limitations. Because they do not learn the density function it
 is more difficult to infer between different images, for example: someone
 wearing glasses and someone not. Being able to infer this allows one to augment
 an image to add the new feature. While there is plenty of research where people
-have figured out how to solve these types of problems with GANs~\cite{} they do
+have figured out how to solve these types of problems with GANs they do
 not perform this action by direct inference like explicit density estimators do.
 By looking at the latent space of a typical GAN, Figure~\ref{fig:ganLS}, we can
 see that there is not a clear clustering of like features.
@@ -73,7 +73,7 @@ forward while a head may be looking in a different direction.
 \label{fig:blobs}
 \end{figure}
 
-StyleGAN2 solves this problem with a few changes to their original work. To
+StyleGAN2~\cite{Karras2019stylegan2} solves this problem with a few changes to their original work. To
 reduce the instances of monsters they introduced a perceptual path length (PPL)
 regularizer. They introduced this because they noticed that images with higher
 quality had lower PPL scores. By introducing this regularizer they can ensure

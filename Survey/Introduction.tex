@@ -14,10 +14,18 @@ set is an subset of the true dataset, as is true for any machine learning
 problem. 
 
 With this ability generative models have proven to be able to produce a wide
-variety of data, including: images~\cite{}, music~\cite{}, text~\cite{},
-voice~\cite{}, and even code~\cite{}. Generative models have also proven useful
-for tasks such as: data augmentation~\cite{}, bias identification~\cite{}, data
-completion~\cite{}, image upscaling~\cite{}, and compression~\cite{}.
+variety of data, including:
+images~\cite{NIPS2014_5ca3e9b1,DBLP:journals/corr/abs-1812-04948},
+music~\cite{DBLP:journals/corr/abs-1709-01620}, text~\cite{DBLP:journals/corr/abs-1810-04805,brown2020language},
+voice~\cite{DBLP:journals/corr/abs-1908-07656}, and even
+code~\cite{svyatkovskiy2020intellicode}. Generative models have also proven
+useful
+for tasks such as: data
+augmentation~\cite{NIPS2019_9426,DBLP:journals/corr/abs-1909-12220}, bias
+identification~\cite{tan2020equalization}, data
+completion~\cite{chen2020generative}, image
+upscaling~\cite{DBLP:journals/corr/LedigTHCATTWS16}, and
+compression~\cite{rippel2017realtime}.
 
 \subsection{Uses of Generative Modeling}
 Generative models are most well known for their ability to generate new data.
@@ -26,21 +34,22 @@ have greatly increased the public's familiarity with such machine
 learning techniques. Not only can generative models be used to create entirely
 but they can also be used to manipulate or augment data. This is commonly
 referred to as a deep fake. This type of augmentation can range from changing
-a horse to a zebra~\cite{} to replacing the speaker's face~\cite{} and
-voice~\cite{} in a video. 
+a horse to a zebra~\cite{DBLP:journals/corr/ZhuPIE17} to replacing the
+speaker's face~\cite{DBLP:journals/corr/abs-2001-00179} and
+voice in a video. 
 
 Such form of data augmentation has other uses. A common one is to fill in
 missing data. This can range from completing a single set of data as well as
 augmenting an entire dataset. The former is useful for tasks like upscaling,
 where there is either missing data when an image is upscaled to a higher
-resolution~\cite{}, or to fill in missing frames in a video that is upscaled to
+resolution, or to fill in missing frames in a video that is upscaled to
 a higher framerate. These have had a lot of practical uses for the cinema
 industry. Netflix uses this technology to compress their data to reduce their
 bandwidth during streaming and also to show movies and shows that were never
 filmed in modern resolutions. The gaming industry also uses these techniques to
 increase framerates and increase resolution, most notably Nvidia's Deep Learning
-Super Sampling (DLSS)~\cite{}. When augmenting an entire dataset, generative
-models can be used to reduce bias in the training set~\cite{}. Since it is very
+Super Sampling (DLSS). When augmenting an entire dataset, generative
+models can be used to reduce bias in the training set. Since it is very
 difficult to identify all biases, even in highly tuned datasets, these models
 can automatically fill in missing samples. By using this kind of modeling
 studies have shown that one can greatly increase the accuracy of the worst
